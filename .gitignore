@@ -1,0 +1,7 @@
+.claude/
+.idea/
+legacy_code/
+refs/
+__pycache__/
+*.egg-info/
+.pytest_cache/
