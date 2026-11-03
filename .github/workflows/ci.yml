@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: oldest, python: "3.10", resolution: lowest-direct, extras: "test" }
+          - { name: oldest + extras, python: "3.10", resolution: lowest-direct, extras: "test,raster,hdf5,vector" }
+          - { name: newest, python: "3.13", resolution: highest, extras: "test" }
+          - { name: newest + extras, python: "3.13", resolution: highest, extras: "test,raster,hdf5,vector" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install uv
+      - run: uv pip install --system --resolution ${{ matrix.resolution }} -e ".[${{ matrix.extras }}]"
+      - run: uv pip list --system
+      - run: pytest
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install -e ".[docs]"
+      - run: sphinx-build -W -b html docs docs/_build/html

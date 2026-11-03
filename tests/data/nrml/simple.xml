@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='utf-8'?>
+<nrml xmlns="http://openquake.org/xmlns/nrml/0.4" xmlns:gml="http://www.opengis.net/gml">
+    <sourceModel name="crustal faults reference">
+        <simpleFaultSource id="CL-038" name="Atajaña" tectonicRegion="Active Shallow Crust">
+            <simpleFaultGeometry>
+                <gml:LineString>
+                    <gml:posList>-70.25361 -19.33414 -70.21710 -19.32552 -70.14180 -19.28980 -69.97834 -19.24255</gml:posList>
+                </gml:LineString>
+                <dip>72.0</dip>
+                <upperSeismoDepth>0.0</upperSeismoDepth>
+                <lowerSeismoDepth>20.0</lowerSeismoDepth>
+            </simpleFaultGeometry>
+            <magScaleRel>WC1994</magScaleRel>
+            <ruptAspectRatio>2.0</ruptAspectRatio>
+            <incrementalMFD minMag="6.0500" binWidth="0.1">
+                <occurRates>3.37698599e-04 2.72164275e-04 2.19347646e-04 1.76780695e-04 1.42474354e-04 1.14825556e-04 9.25423271e-05 7.45834168e-05 6.01096411e-05 4.84446692e-05</occurRates>
+            </incrementalMFD>
+            <rake>90.0</rake>
+        </simpleFaultSource>
+        <simpleFaultSource id="CL-053" name="Pisagua" tectonicRegion="Active Shallow Crust">
+            <simpleFaultGeometry>
+                <gml:LineString>
+                    <gml:posList>-70.18465 -19.62373 -70.02230 -19.55342 -69.98129 -19.55326</gml:posList>
+                </gml:LineString>
+                <dip>72.0</dip>
+                <upperSeismoDepth>0.0</upperSeismoDepth>
+                <lowerSeismoDepth>20.0</lowerSeismoDepth>
+            </simpleFaultGeometry>
+            <magScaleRel>WC1994</magScaleRel>
+            <ruptAspectRatio>2.0</ruptAspectRatio>
+            <incrementalMFD minMag="6.0500" binWidth="0.1">
+                <occurRates>3.68822652e-04 2.97248345e-04 2.39563862e-04 1.93073720e-04 1.55605529e-04 1.25408474e-04 1.01071507e-04 8.14574110e-05</occurRates>
+            </incrementalMFD>
+            <rake>90.0</rake>
+        </simpleFaultSource>
+        <simpleFaultSource id="CL-055" name="Zofri" tectonicRegion="Active Shallow Crust">
+            <simpleFaultGeometry>
+                <gml:LineString>
+                    <gml:posList>-70.14740 -20.20553 -70.12169 -20.21294 -70.07040 -20.19979 -70.01270 -20.20725 -69.96945 -20.20227</gml:posList>
+                </gml:LineString>
+                <dip>72.0</dip>
+                <upperSeismoDepth>0.0</upperSeismoDepth>
+                <lowerSeismoDepth>20.0</lowerSeismoDepth>
+            </simpleFaultGeometry>
+            <magScaleRel>WC1994</magScaleRel>
+            <ruptAspectRatio>2.0</ruptAspectRatio>
+            <incrementalMFD minMag="6.0500" binWidth="0.1">
+                <occurRates>3.04142970e-04 2.45120505e-04 1.97552032e-04 1.59214773e-04 1.28317303e-04 1.03415844e-04 8.33468020e-05 6.71723899e-05</occurRates>
+            </incrementalMFD>
+            <rake>90.0</rake>
+        </simpleFaultSource>
+        <simpleFaultSource id="CL-054" name="Salar Grande" tectonicRegion="Active Shallow Crust">
+            <simpleFaultGeometry>
+                <gml:LineString>
+                    <gml:posList>-70.11694 -20.85060 -70.09103 -20.86305 -70.07386 -20.88468 -70.02217 -20.98830 -69.99122 -21.08130 -69.95263 -21.13326 -69.93679 -21.20309</gml:posList>
+                </gml:LineString>
+                <dip>72.0</dip>
+                <upperSeismoDepth>0.0</upperSeismoDepth>
+                <lowerSeismoDepth>20.0</lowerSeismoDepth>
+            </simpleFaultGeometry>
+            <magScaleRel>WC1994</magScaleRel>
+            <ruptAspectRatio>2.0</ruptAspectRatio>
+            <incrementalMFD minMag="6.0500" binWidth="0.1">
+                <occurRates>4.10911642e-04 3.31169480e-04 2.66902207e-04 2.15106743e-04 1.73362789e-04 1.39719732e-04 1.12605500e-04 9.07530988e-05 7.31414091e-05 5.89474717e-05 4.75080322e-05</occurRates>
+            </incrementalMFD>
+            <rake>180.0</rake>
+        </simpleFaultSource>
+        <simpleFaultSource id="CL-044a" name="Chuculay 1" tectonicRegion="Active Shallow Crust">
+            <simpleFaultGeometry>
+                <gml:LineString>
+                    <gml:posList>-69.94422 -21.09077 -69.91030 -21.08310 -69.84095 -21.08556</gml:posList>
+                </gml:LineString>
+                <dip>72.0</dip>
+                <upperSeismoDepth>0.0</upperSeismoDepth>
+                <lowerSeismoDepth>20.0</lowerSeismoDepth>
+            </simpleFaultGeometry>
+            <magScaleRel>WC1994</magScaleRel>
+            <ruptAspectRatio>2.0</ruptAspectRatio>
+            <incrementalMFD minMag="6.0500" binWidth="0.1">
+                <occurRates>2.68356265e-04 2.16278624e-04 1.74307252e-04 1.40480912e-04 1.13218964e-04 9.12475129e-05</occurRates>
+            </incrementalMFD>
+            <rake>90.0</rake>
+        </simpleFaultSource>
+    </sourceModel>
+</nrml>

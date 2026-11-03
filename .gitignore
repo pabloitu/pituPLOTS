@@ -5,3 +5,10 @@ refs/
 __pycache__/
 *.egg-info/
 .pytest_cache/
+.venv/
+venv/
+build/
+dist/
+docs/_build/
+docs/gallery/
+docs/sg_execution_times.rst

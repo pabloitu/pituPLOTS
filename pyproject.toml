@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pituPLOTS"
+dynamic = ["version"]
+description = "Spatial and geographic plotting routines for geoscience data"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Pablo Iturrieta" }]
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "matplotlib>=3.8",
+    "cartopy>=0.23",
+    "scipy>=1.10",
+]
+
+[project.optional-dependencies]
+raster = ["rasterio>=1.3.9"]
+hdf5 = ["h5py>=3.10"]
+vector = ["pyogrio>=0.7"]
+csep = ["pycsep"]
+oq = ["openquake.engine"]
+all = ["pituPLOTS[raster,hdf5,vector,csep,oq]"]
+test = ["pytest>=7.4", "pytest-mpl>=0.17"]
+docs = ["sphinx>=7", "sphinx-gallery>=0.15"]
+
+[project.urls]
+Repository = "https://github.com/pabloitu/pituPLOTS"
+
+[tool.hatch.version]
+path = "src/pituplots/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pituplots"]
+
+[tool.pytest.ini_options]
+minversion = "7.4"
+testpaths = ["tests"]
+addopts = "--mpl --mpl-baseline-path=tests/baseline"
