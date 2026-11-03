@@ -1,0 +1,62 @@
+ZORDER = {
+    "basemap": 0,
+    "grids": 2,
+    "contours": 3,
+    "gridlines": 4,
+    "coast": 4,
+    "vectors": 5,
+    "catalogs": 6,
+    "points": 7,
+    "labels": 8,
+    "legend": 9,
+}
+
+DEFAULTS = {
+    "grid": {"cmap": "magma", "alpha_exp": 0.8},
+    "catalog": {"color": "gold", "edgecolor": "black", "alpha": 0.4, "size": 6, "max_size": 220,
+                "power": 4, "legend_loc": "best"},
+    "size_legend": {"color": "gray", "alpha": 0.5, "edgecolor": "black", "title": "$M_w$",
+                    "loc": "best", "handletextpad": 5, "labelspacing": 1},
+    "field": {"cmap": "RdYlGn_r", "alpha": 0.75, "over": "#4a0d1f", "contour_color": "black",
+              "contour_fmt": None},
+    "sites": {"cmap": "magma_r", "linewidths": 0, "fill": 1},
+    "section": {"color": "gold", "edgecolor": "black", "alpha": 0.6, "size": 6, "max_size": 220,
+                "power": 4, "legend": False},
+    "slab": {"color": "black", "lw": 1.4, "bottom_color": "0.4", "fill_color": "0.45",
+             "fill_alpha": 0.18},
+    "profile": {"color": "0.3", "lw": 0.8},
+    "highlight": {"color": "none", "edgecolor": "red", "linewidths": 1.2, "scale": 1.6},
+    "points": {"color": "cornflowerblue", "edgecolor": "black", "marker": "o", "size": 25,
+               "linewidths": 0.7, "offset": (4, 4)},
+    "lines": {"color": "black", "lw": 1, "cmap": "viridis"},
+    "polygons": {"edge": "black", "lw": 0.6},
+    "darkgrid": {"facecolor": "0.9", "grid_color": "white", "grid_lw": 1.0, "minor_grid_lw": 0.4,
+                 "tick_color": "gray", "major_length": 8, "minor_length": 4, "tick_width": 0.5},
+    "curves": {"colors": ["darkred", "steelblue", "darkgreen", "darkorange", "purple", "saddlebrown", "teal",
+                          "olive"], "lw": 2, "envelope_alpha": 0.3, "branch_lw": 0.4, "branch_alpha": 0.3,
+               "poe_color": "black", "poe_lw": 0.8, "poe_ls": "--", "poe_fontsize": "medium", "ylim": (1e-5, 2)},
+    "fmd": {"colors": ["steelblue", "darkred", "darkgreen", "darkorange", "purple", "saddlebrown", "teal", "olive"],
+            "lw": 1.8, "ms": 4.5, "mew": 0.4, "alpha": 0.75, "fit_color": "black", "fit_lw": 1.6, "mc_lw": 1,
+            "mc_color": None, "mc_ls": ":"},
+    "magtime": {"color": "steelblue", "edgecolor": "black", "linewidths": 0.3, "alpha": 0.35, "size": 8,
+                "max_size": 380, "power": 3},
+    "cumulative": {"color": "black", "lw": 1.6, "sim_color": "steelblue", "band_alpha": (0.2, 0.5),
+                   "poisson_color": None, "poisson_label": "uniform rate"},
+    "sources": {"color": "0.2", "lw": 1.2, "cmap": "viridis", "size": 9},
+    "region": {"color": "black", "lw": 1},
+    "coast": {"color": "black", "lw": 1.5},
+    "borders": {"color": "black", "lw": 0.5},
+    "gridlines": {"alpha": 0.5},
+    "locator": {"land": "whitesmoke", "ocean": "lightsteelblue", "box": "red", "box_lw": 1.2,
+                "line": "gray", "lw": 0.4},
+    "scalebar": {"color": "black", "lw": 1.2, "halo": 1.6, "halo_color": "white", "fontsize": "small"},
+    "labels": {"color": "black", "offset": (4, 4), "halo": 1.6, "halo_color": "white", "fontsize": "small"},
+    "panel_label": {"fontsize": "xx-large"},
+    "compare": {"cmap": "inferno", "diff_cmap": "RdBu_r", "alpha_exp": 0},
+}
+
+THEME = {}
+
+
+def resolve(family, **kwargs):
+    return {**DEFAULTS[family], **THEME.get(family, {}), **kwargs}

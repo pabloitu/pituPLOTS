@@ -2,12 +2,63 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
+ALIASES = {
+    "lon": ("lon", "longitude", "x", "lon_center"),
+    "lat": ("lat", "latitude", "y", "lat_center"),
+    "mag": ("mag", "magnitude", "mw", "m"),
+    "depth": ("depth", "z"),
+}
+
 
 def _column(x, n, name, dtype=None):
     x = np.asarray(x, dtype=dtype)
     if x.ndim == 0 or x.shape[0] != n:
         raise ValueError(f"{name} has shape {x.shape}, expected {n} rows")
     return x
+
+
+def find_column(df, key):
+    """Column of ``df`` for ``key``, one of the keys of ``ALIASES``."""
+    low = {str(c).lower(): c for c in df.columns}
+    for a in ALIASES[key]:
+        if a in low:
+            return df[low[a]]
+    raise ValueError(f"no {key} column ({'/'.join(ALIASES[key])}) in {list(df.columns)}")
+
+
+def unwrap_lon(lon):
+    """Put longitudes on one continuous range.
+
+    Cuts the circle at its largest empty arc, so -180..180, 0..360 and mixed
+    inputs give the same range, up to whole turns. Input that is continuous
+    already comes back as it is, and so does a span of 360 deg.
+
+    Parameters
+    ----------
+    lon : array_like
+        Longitudes in degrees, any shape. NaN stays NaN.
+
+    Returns
+    -------
+    numpy.ndarray
+        A new array of the same shape.
+    """
+    lon = np.array(lon, float)
+    ok = lon[np.isfinite(lon)]
+    if ok.size == 0:
+        return lon
+    m = lon % 360
+    s = np.unique(m[np.isfinite(m)])
+    gaps = np.diff(s, append=s[0] + 360)
+    k = gaps.argmax()
+    span = np.ptp(ok)
+    if span < 360 and 360 - span >= gaps[k] - 1e-9:
+        return lon
+    if abs(span - 360) < 1e-9 and gaps[k] <= 180:
+        return lon
+    x0 = s[(k + 1) % s.size]
+    x = m + 360 * (m < x0) - 360 * (x0 > 180)
+    return lon + 360 * np.rint((x - lon) / 360)
 
 
 @dataclass(eq=False)
@@ -34,6 +85,15 @@ class Catalog:
         if self.time is not None:
             self.time = _column(self.time, n, "time", "datetime64[ms]")
         self.extra = {k: _column(self.extra[k], n, k) for k in self.extra}
+
+    def __len__(self):
+        return self.lon.size
+
+    def __getitem__(self, key):
+        """Events selected by a boolean mask, indices or a slice."""
+        pick = (lambda v: None if v is None else v[key])
+        return Catalog(self.lon[key], self.lat[key], pick(self.depth), pick(self.mag), pick(self.time),
+                       {k: v[key] for k, v in self.extra.items()})
 
 
 @dataclass(eq=False)
@@ -75,6 +135,28 @@ class Grid:
             if self.mask.shape != s[:2]:
                 raise ValueError(f"mask has shape {self.mask.shape}, expected {s[:2]}")
 
+    def contains(self, lon, lat):
+        """Whether each point falls in an unmasked cell. Points on 0..360 or
+        -180..180 both work for a grid in degrees.
+
+        Parameters
+        ----------
+        lon, lat : array_like
+
+        Returns
+        -------
+        ndarray of bool
+        """
+        x, y = np.asarray(lon, float), np.asarray(lat, float)
+        if self.crs == "EPSG:4326":
+            x = self.x_edges[0] + (x - self.x_edges[0]) % 360
+        i = np.searchsorted(self.x_edges, x, side="right") - 1
+        j = np.searchsorted(self.y_edges, y, side="right") - 1
+        ok = (i >= 0) & (i < self.x_edges.size - 1) & (j >= 0) & (j < self.y_edges.size - 1)
+        if self.mask is not None:
+            ok[ok] = ~self.mask[j[ok], i[ok]]
+        return ok
+
     @classmethod
     def from_points(cls, lon, lat, values, dh=None, anchor="center"):
         """Build a lattice from scattered points.
@@ -82,8 +164,9 @@ class Grid:
         Parameters
         ----------
         lon, lat : array_like
-            Point coordinates, in any order. Longitudes must already be
-            continuous: a gap wider than 180 deg raises.
+            Point coordinates, in any order. Longitudes go through
+            ``unwrap_lon``, so points on both sides of the dateline give one
+            lattice.
         values : array_like
             One value per point.
         dh : float or (float, float), optional
@@ -106,8 +189,7 @@ class Grid:
         values = _column(values, lon.size, "values", float)
         if lon.size == 0:
             raise ValueError("no points")
-        if np.ptp(lon) > 180 and np.diff(np.sort(lon)).max() > 180:
-            raise ValueError("lon wraps the dateline: apply unwrap_lon first")
+        lon = unwrap_lon(lon)
 
         dx, dy = (None, None) if dh is None else np.broadcast_to(dh, 2).astype(float)
         edges, idx = [], []

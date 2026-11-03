@@ -1,0 +1,13 @@
+# White, open and quiet: open spines, frameless legends, a faint grid on statistics.
+extends: report
+rc:
+  axes.spines.right: false
+  axes.spines.top: false
+  axes.edgecolor: "0.3"
+  xtick.color: "0.3"
+  ytick.color: "0.3"
+  legend.frameon: false
+  axes.titlelocation: left
+style:
+  gridlines: {fontsize: 9, color: "0.8", linestyle: ":"}
+  darkgrid: {facecolor: white, grid_color: "0.9", tick_color: "0.4"}

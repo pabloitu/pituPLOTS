@@ -1,0 +1,16 @@
+# Reports, measured on pattern_catalog_map.jpg; title 16 and labels 14 as in the hazard curves of post.py.
+rc:
+  figure.figsize: [8, 6]
+  savefig.dpi: 300
+  font.size: 12
+  axes.titlesize: 16
+  axes.labelsize: 14
+  xtick.labelsize: 12
+  ytick.labelsize: 12
+  legend.fontsize: 12
+  legend.title_fontsize: 14
+  axes.linewidth: 0.8
+  xtick.major.width: 0.8
+  ytick.major.width: 0.8
+style:
+  gridlines: {fontsize: 9}

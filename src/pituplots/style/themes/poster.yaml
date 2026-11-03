@@ -1,0 +1,29 @@
+# Posters: readable from 2 m on A0. Size, not weight, for emphasis.
+extends: report
+rc:
+  figure.figsize: [16, 12]
+  savefig.dpi: 200
+  font.size: 22
+  axes.titlesize: 32
+  axes.labelsize: 26
+  xtick.labelsize: 22
+  ytick.labelsize: 22
+  legend.fontsize: 22
+  legend.title_fontsize: 24
+  axes.linewidth: 1.6
+  xtick.major.width: 1.6
+  ytick.major.width: 1.6
+  xtick.major.size: 8
+  ytick.major.size: 8
+  lines.linewidth: 3
+style:
+  gridlines: {fontsize: 18, linewidth: 0.8}
+  coast: {lw: 2.5}
+  borders: {lw: 1.2}
+  region: {lw: 2.5}
+  catalog: {size: 15, max_size: 600}
+  curves: {lw: 4, poe_lw: 1.6}
+  fmd: {lw: 3, ms: 9, fit_lw: 3, mc_lw: 2.5}
+  scalebar: {lw: 3}
+  labels: {halo: 3}
+  darkgrid: {grid_lw: 1.6, minor_grid_lw: 0.7, major_length: 12, minor_length: 6, tick_width: 1}

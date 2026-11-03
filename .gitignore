@@ -12,3 +12,4 @@ dist/
 docs/_build/
 docs/gallery/
 docs/sg_execution_times.rst
+examples/output/

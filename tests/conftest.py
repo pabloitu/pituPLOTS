@@ -19,6 +19,7 @@ def pytest_configure(config):
 @pytest.fixture(scope="session", autouse=True)
 def empty_cartopy_cache(tmp_path_factory):
     cartopy.config["data_dir"] = str(tmp_path_factory.mktemp("cartopy"))
+    cartopy.config["cache_dir"] = str(tmp_path_factory.mktemp("cartopy_cache"))
 
 
 @pytest.fixture(autouse=True)
