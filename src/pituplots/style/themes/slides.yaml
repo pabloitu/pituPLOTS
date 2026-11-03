@@ -1,0 +1,30 @@
+# Slides, from psha_chile cat_handler_2/palette.py.
+rc:
+  figure.figsize: [10, 5.6]
+  savefig.dpi: 200
+  font.size: 12
+  axes.titlesize: 14
+  axes.labelsize: 12
+  xtick.labelsize: 11
+  ytick.labelsize: 11
+  legend.fontsize: 10
+  legend.title_fontsize: 11
+  axes.linewidth: 0.8
+  xtick.major.width: 0.8
+  ytick.major.width: 0.8
+  axes.edgecolor: "0.25"
+  axes.labelcolor: "0.15"
+  axes.spines.right: false
+  axes.spines.top: false
+  axes.titlelocation: left
+  axes.titlepad: 10
+  legend.frameon: false
+  text.color: "0.15"
+  xtick.color: "0.25"
+  ytick.color: "0.25"
+style:
+  gridlines: {fontsize: 10}
+  region: {lw: 1.5}
+  borders: {lw: 0.8}
+  size_legend: {frameon: true}
+  curves: {lw: 2.5}

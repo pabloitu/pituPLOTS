@@ -1,0 +1,19 @@
+# Keys every theme sets, so switching themes leaves nothing behind.
+rc:
+  axes.edgecolor: black
+  axes.labelcolor: black
+  axes.labelweight: normal
+  axes.spines.right: true
+  axes.spines.top: true
+  axes.titlelocation: center
+  axes.titlepad: 6
+  axes.titleweight: normal
+  figure.titleweight: normal
+  legend.frameon: true
+  pdf.fonttype: 42
+  savefig.facecolor: white
+  svg.fonttype: none
+  text.color: black
+  xtick.color: black
+  ytick.color: black
+style: {}

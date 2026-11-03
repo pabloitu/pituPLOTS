@@ -1,0 +1,22 @@
+# Journal figures, 16.5 cm wide, from psha_renta national_maps.py.
+rc:
+  figure.figsize: [6.5, 4]
+  savefig.dpi: 300
+  font.size: 7
+  axes.titlesize: 8
+  axes.labelsize: 7
+  xtick.labelsize: 6
+  ytick.labelsize: 6
+  legend.fontsize: 6
+  legend.title_fontsize: 7
+  axes.linewidth: 0.5
+  xtick.major.width: 0.4
+  ytick.major.width: 0.4
+style:
+  gridlines: {fontsize: 5.5, linewidth: 0.4}
+  coast: {lw: 0.5}
+  borders: {lw: 0.3}
+  region: {lw: 0.5}
+  catalog: {size: 3, max_size: 90}
+  section: {size: 3, max_size: 90}
+  curves: {lw: 1.2}

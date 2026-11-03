@@ -1,0 +1,32 @@
+# Talks on a dark background: light text, dark gray grid for statistics, bright curve colours.
+extends: slides
+rc:
+  figure.facecolor: "#1b1d22"
+  axes.facecolor: "#1b1d22"
+  savefig.facecolor: "#1b1d22"
+  axes.edgecolor: "0.7"
+  axes.labelcolor: "0.92"
+  text.color: "0.92"
+  xtick.color: "0.75"
+  ytick.color: "0.75"
+  legend.facecolor: "#24272e"
+  legend.edgecolor: "0.4"
+  legend.frameon: true
+style:
+  coast: {color: "0.85"}
+  borders: {color: "0.6"}
+  region: {color: "0.9"}
+  gridlines: {color: "0.6"}
+  catalog: {edgecolor: "0.1"}
+  darkgrid: {facecolor: "#2a2d34", grid_color: "#3c4049", tick_color: "0.6"}
+  curves:
+    colors: ["#ff6b6b", "#4dabf7", "#69db7c", "#ffa94d", "#da77f2", "#e8c37b", "#38d9a9", "#adb5bd"]
+    poe_color: "0.85"
+  fmd:
+    colors: ["#4dabf7", "#ff6b6b", "#69db7c", "#ffa94d", "#da77f2", "#e8c37b", "#38d9a9", "#adb5bd"]
+    fit_color: "0.9"
+  cumulative: {color: "0.92", sim_color: "#4dabf7"}
+  labels: {color: "0.95", halo_color: "#1b1d22"}
+  scalebar: {color: "0.95", halo_color: "#1b1d22"}
+  panel_label: {color: "0.95"}
+  size_legend: {color: "0.75", edgecolor: "0.95"}
