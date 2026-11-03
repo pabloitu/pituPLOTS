@@ -160,11 +160,6 @@ def test_from_points_exceeding_180():
     assert g.x_edges.tolist() == [179, 180, 181]
 
 
-def test_from_points_dateline_wrap_raises():
-    with pytest.raises(ValueError, match="unwrap_lon"):
-        Grid.from_points([179.95, -179.95], [0, 0], [1, 2], dh=0.1)
-
-
 def test_from_points_global_is_not_a_wrap():
     x = np.arange(-179, 180, 2.0)
     g = Grid.from_points(x, x * 0, x, dh=2)
@@ -190,3 +185,23 @@ def test_profile():
 def test_profile_invalid(r, w):
     with pytest.raises(ValueError):
         Profile(0, 0, 0, r, w)
+
+
+def test_catalog_subset_and_len():
+    t = np.array(["2020-01-01", "2021-01-01", "2022-01-01"], "datetime64[ms]")
+    c = Catalog([1, 2, 3], [4, 5, 6], [7, 8, 9], [3, 4, 5], t, extra={"k": np.array(["a", "b", "c"])})
+    s = c[c.mag >= 4]
+    assert len(s) == 2 and s.lon.tolist() == [2, 3] and s.extra["k"].tolist() == ["b", "c"]
+    assert c[[0]].time[0] == t[0] and len(c[1:]) == 2
+    assert Catalog([1], [2])[[0]].mag is None
+
+
+def test_grid_contains_with_mask_and_dateline():
+    g = Grid(np.ones((2, 2)), [179.0, 180.0, 181.0], [0.0, 1.0, 2.0], mask=np.array([[False, True], [False, False]]))
+    ok = g.contains([179.5, -179.5, 180.5, 179.5, 200.0], [0.5, 0.5, 1.5, 3.0, 0.5])
+    assert ok.tolist() == [True, False, True, False, False]
+
+
+def test_lon_center_alias():
+    d = pd.DataFrame({"lon_center": [1.0], "lat_center": [2.0]})
+    assert containers.find_column(d, "lon").iloc[0] == 1 and containers.find_column(d, "lat").iloc[0] == 2

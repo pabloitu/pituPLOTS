@@ -56,6 +56,15 @@ def test_rgba_warp_needs_no_network():
     assert out.shape[:2] == (10, 10)
 
 
+def test_set_extent_needs_continuous_longitudes():
+    pc = ccrs.PlateCarree()
+    ax = plt.axes(projection=ccrs.PlateCarree(central_longitude=180))
+    ax.set_extent([170, 190, -10, 10], pc)
+    assert ax.get_extent() == pytest.approx((-10, 10, -10, 10))
+    ax.set_extent([170, -170, -10, 10], pc)
+    assert ax.get_extent()[:2] == pytest.approx((-180, 180), abs=1e-2)
+
+
 @pytest.mark.parametrize("res", ["110m", "50m", "10m"])
 @pytest.mark.parametrize("f", [cfeature.COASTLINE, cfeature.BORDERS])
 def test_natural_earth_offline(f, res):
