@@ -38,8 +38,10 @@ def size_by_value(values, size=6, max_size=220, power=4, min_val=None, max_val=N
     return size + n ** power * (max_size - size)
 
 
-def as_catalog(data):
+def as_catalog(data, geo=False):
     if isinstance(data, Catalog):
+        if geo and not data.geographic:
+            raise ValueError(f"catalog in {data.crs!r}: maps and sections need lon/lat; use local_xyz or the 3D scene")
         return data
     if isinstance(data, pd.DataFrame):
         lon, lat = find_column(data, "lon"), find_column(data, "lat")
@@ -151,7 +153,7 @@ def plot_catalog(data, ax=None, color_by=None, cmap=None, sizer=None, mag_ticks=
     suit a few hundred events; for thousands, lower ``alpha`` and ``size``, and
     ``linewidths``, or pass a ``sizer``.
     """
-    cat = as_catalog(data)
+    cat = as_catalog(data, geo=True)
     ax = get_ax(cat, ax, kw)
     st = resolve("catalog", **kw)
     legend, loc = st.pop("legend", True), st.pop("legend_loc")
@@ -211,7 +213,7 @@ def highlight(data, ax, where=None, labels=None, sizer=None, **kw):
     -------
     Axes
     """
-    cat = as_catalog(data)
+    cat = as_catalog(data, geo=True)
     keep = np.ones(cat.lon.shape, bool) if where is None else np.asarray(where, bool)
     if keep.shape != cat.lon.shape:
         raise ValueError(f"where has shape {keep.shape}, expected {cat.lon.shape}")

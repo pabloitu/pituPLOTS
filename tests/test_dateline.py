@@ -172,7 +172,7 @@ def test_from_points_input_not_modified():
 def test_io_stays_free_of_cartopy():
     root = Path(pituplots.__file__).parent / "io"
     for f in root.glob("*.py"):
-        for n in ast.walk(ast.parse(f.read_text())):
+        for n in ast.walk(ast.parse(f.read_text(encoding="utf-8"))):
             names = [a.name for a in n.names] if isinstance(n, ast.Import) else []
             names += [n.module or ""] if isinstance(n, ast.ImportFrom) else []
             for m in names:
@@ -311,7 +311,7 @@ def test_extent_iceland(data):
 
 
 def test_extent_antarctic_trench(data):
-    g = json.loads((data / "chile/pb2002_antarctic_trench.geojson").read_text())
+    g = json.loads((data / "chile/pb2002_antarctic_trench.geojson").read_text(encoding="utf-8"))
     p = np.array(g["features"][0]["geometry"]["coordinates"]).reshape(-1, 2)
     e = extent_from((p[:, 0], p[:, 1]), pad=0)
     assert e[0] < e[1] < 0 and -65 < e[2] < -40

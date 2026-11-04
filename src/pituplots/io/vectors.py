@@ -43,10 +43,10 @@ def read_vector(path, layer=None):
             rows = [list(s.record) for s in r.iterShapeRecords()]
             geoms = [shape(s) if s.shapeType != 0 else None for s in r.shapes()]
         prj = path.with_suffix(".prj")
-        crs = crs_name(CRS.from_wkt(prj.read_text())) if prj.is_file() else None
+        crs = crs_name(CRS.from_wkt(prj.read_text(encoding="utf-8"))) if prj.is_file() else None
         return geoms, pd.DataFrame(rows, columns=names), crs
     if kind in (".geojson", ".json"):
-        d = json.loads(path.read_text())
+        d = json.loads(path.read_text(encoding="utf-8"))
         fs = d["features"] if d.get("type") == "FeatureCollection" else [d]
         geoms = [shape(f["geometry"]) if f.get("geometry") else None for f in fs]
         c = d.get("crs", {}).get("properties", {}).get("name")

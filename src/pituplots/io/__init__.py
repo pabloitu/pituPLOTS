@@ -1,4 +1,4 @@
-from pituplots.io.catalogs import read_catalog
+from pituplots.io.catalogs import load_config, read_catalog, trim_catalog
 from pituplots.io.containers import Catalog, Grid, Profile, Sites
 from pituplots.io.oq import read_csv, read_datastore, read_sources
 from pituplots.io.forecasts import read_csep_grid, read_csep_nodes, read_rate_csv
@@ -11,6 +11,7 @@ __all__ = [
     "Profile",
     "Sites",
     "cells_to_outline",
+    "load_config",
     "read_catalog",
     "read_csep_grid",
     "read_csep_nodes",
@@ -21,4 +22,5 @@ __all__ = [
     "read_slab2",
     "read_sources",
     "read_vector",
+    "trim_catalog",
 ]
