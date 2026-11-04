@@ -75,6 +75,58 @@ Statistics
 .. autofunction:: pituplots.stats.gr_model
 .. autofunction:: pituplots.stats.plot_mfd
 
+3D scenes
+---------
+
+Needs ``pip install "pituplots[3d]"``. Call ``plotter.show()`` to open the window.
+
+.. autofunction:: pituplots.scene.plot_catalog_3d
+.. autofunction:: pituplots.scene.screenshot
+.. autofunction:: pituplots.scene.export_flags
+.. autofunction:: pituplots.scene.show_events
+.. autofunction:: pituplots.scene.window
+.. autofunction:: pituplots.scene.animate
+.. autofunction:: pituplots.scene.fade
+.. autofunction:: pituplots.scene.add_section
+.. autofunction:: pituplots.scene.remove_section
+.. autofunction:: pituplots.scene.view_section
+.. autofunction:: pituplots.scene.step_section
+.. autofunction:: pituplots.scene.clip_layers
+.. autofunction:: pituplots.scene.on_wheel
+.. autofunction:: pituplots.scene.subset
+.. autofunction:: pituplots.scene.add_graticule
+.. autofunction:: pituplots.scene.inset
+.. autofunction:: pituplots.scene.to_lonlat
+.. autofunction:: pituplots.scene.degrees
+.. autofunction:: pituplots.scene.full_bounds
+.. autofunction:: pituplots.scene.make_frame
+.. autofunction:: pituplots.scene.to_scene
+
+3D layers
+---------
+
+Layers in any CRS line up with the catalog through the scene frame. A config's ``layers`` list adds them in
+one call, and the app shows each with a visibility box and an opacity slider.
+
+.. autofunction:: pituplots.layers.add_dem
+.. autofunction:: pituplots.layers.add_surface
+.. autofunction:: pituplots.layers.add_shapes
+.. autofunction:: pituplots.layers.add_mesh
+.. autofunction:: pituplots.layers.add_layers
+.. autofunction:: pituplots.layers.drape
+.. autoclass:: pituplots.scene.Picker
+   :members: at, fields, toggle, table, export
+
+App
+---
+
+Needs ``pip install "pituplots[app]"``. From a shell: ``pituplots-3d catalog.csv --config catalog.yaml``.
+
+.. autofunction:: pituplots.app.build_app
+.. autofunction:: pituplots.app.main
+.. autofunction:: pituplots.app.columns
+.. autofunction:: pituplots.scene.radius
+
 Style
 -----
 
@@ -90,6 +142,8 @@ Readers
 -------
 
 .. autofunction:: pituplots.io.read_catalog
+.. autofunction:: pituplots.io.load_config
+.. autofunction:: pituplots.io.trim_catalog
 .. autofunction:: pituplots.io.read_csep_grid
 .. autofunction:: pituplots.io.read_csep_nodes
 .. autofunction:: pituplots.io.read_rate_csv

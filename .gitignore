@@ -13,3 +13,7 @@ docs/_build/
 docs/gallery/
 docs/sg_execution_times.rst
 examples/output/
+mina_data/
+/flags.csv
+/scene.png
+/scene.html

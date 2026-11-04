@@ -30,9 +30,15 @@ hdf5 = ["h5py>=3.10"]
 vector = ["pyogrio>=0.7"]
 csep = ["pycsep"]
 oq = ["openquake.engine"]
-all = ["pituPLOTS[raster,hdf5,vector,csep,oq]"]
+excel = ["openpyxl>=3.1"]
+3d = ["pyvista>=0.44", "vtk>=9.3", "imageio>=2.31", "imageio-ffmpeg>=0.5.1"]
+app = ["pituPLOTS[3d]", "trame>=3.6", "trame-vtk>=2.8", "trame-vuetify>=2.7"]
+all = ["pituPLOTS[raster,hdf5,vector,csep,oq,excel,app]"]
 test = ["pytest>=7.4", "pytest-mpl>=0.17"]
 docs = ["sphinx>=7", "sphinx-gallery>=0.15"]
+
+[project.scripts]
+pituplots-3d = "pituplots.app:main"
 
 [project.urls]
 Repository = "https://github.com/pabloitu/pituPLOTS"

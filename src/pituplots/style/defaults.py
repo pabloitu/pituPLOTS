@@ -53,6 +53,21 @@ DEFAULTS = {
     "labels": {"color": "black", "offset": (4, 4), "halo": 1.6, "halo_color": "white", "fontsize": "small"},
     "panel_label": {"fontsize": "xx-large"},
     "compare": {"cmap": "inferno", "diff_cmap": "RdBu_r", "alpha_exp": 0},
+    "scene": {"color": "#d4a017", "cmap": "viridis", "palette": "tab10", "nan_color": "lightgray",
+              "size": (3.0, 26.0), "classes": 8, "point_size": 7.0, "stress_drop": 3e6, "opacity": 0.9,
+              "ambient": 0.4,
+              "diffuse": 0.8, "specular": 0.2, "max_glyphs": 200000, "resolution": (10, 8),
+              "background": "white", "background_top": "#dfe4ea", "text_color": "black", "font_size": 10,
+              "window_size": (1200, 800), "section_color": "#d62728"},
+    "surface": {"cmap": "cividis_r", "opacity": 0.5, "color": "#8c6bb1", "ambient": 0.3, "specular": 0.1,
+                "nan_color": "lightgray", "clim": None},
+    "dem": {"cmap": "gist_earth", "opacity": 1.0, "color": "#c8b89a", "ambient": 0.35, "specular": 0.0,
+            "nan_color": "lightgray", "clim": None},
+    "shapes": {"color": "black", "line_width": 1.5, "opacity": 1.0, "lift": 20.0},
+    "mesh": {"color": "#b0b0b0", "opacity": 0.6, "scalars": None, "cmap": "viridis", "show_edges": False},
+    "picking": {"font_size": 9, "text_color": "black", "box_color": "white", "box_opacity": 0.85,
+                "flag_color": "red", "select_color": "black", "marker_size": 12.0,
+                "marker_opacity": 0.45},
 }
 
 THEME = {}

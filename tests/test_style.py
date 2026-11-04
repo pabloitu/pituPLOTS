@@ -108,7 +108,7 @@ BANNED_RC = {"rcParams", "rc", "rc_context", "rcdefaults", "rc_file"}
 
 @pytest.mark.parametrize("f", sorted(SRC.rglob("*.py")), ids=lambda p: p.name)
 def test_no_banned_calls(f):
-    t = ast.parse(f.read_text())
+    t = ast.parse(f.read_text(encoding="utf-8"))
     for n in ast.walk(t):
         if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute):
             assert n.func.attr not in BANNED_CALLS, f"{f}:{n.lineno}"
@@ -123,7 +123,7 @@ def test_no_banned_calls(f):
 def test_optional_imports_are_local():
     opt = {"rasterio", "h5py", "pyogrio", "csep", "openquake", "geopandas"}
     for f in SRC.rglob("*.py"):
-        for n in ast.parse(f.read_text()).body:
+        for n in ast.parse(f.read_text(encoding="utf-8")).body:
             names = [a.name for a in n.names] if isinstance(n, ast.Import) else []
             names += [n.module or ""] if isinstance(n, ast.ImportFrom) else []
             assert not {m.partition(".")[0] for m in names} & opt, f

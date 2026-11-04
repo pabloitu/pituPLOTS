@@ -13,7 +13,7 @@ MAX_BYTES = 5e6
 
 
 def test_manifest_matches_files(data):
-    man = json.loads((data / "manifest.json").read_text())["files"]
+    man = json.loads((data / "manifest.json").read_text(encoding="utf-8"))["files"]
     found = {p.relative_to(data).as_posix() for p in data.rglob("*")
              if p.is_file() and p.parent != data and "__pycache__" not in p.parts}
     assert found == set(man)

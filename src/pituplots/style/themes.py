@@ -41,7 +41,7 @@ def load_theme(name):
         p = HERE / f"{name}.yaml"
     else:
         raise ValueError(f"unknown theme {name!r}, have {list(NAMES)} or a .yaml path")
-    d = yaml.safe_load(p.read_text()) or {}
+    d = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
     bad = set(d) - {"rc", "style", "extends"}
     if bad:
         raise ValueError(f"{p.name}: unknown keys {sorted(bad)}, expected rc, style, extends")

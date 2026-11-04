@@ -14,9 +14,9 @@ jobs:
       matrix:
         include:
           - { name: oldest, python: "3.10", resolution: lowest-direct, extras: "test" }
-          - { name: oldest + extras, python: "3.10", resolution: lowest-direct, extras: "test,raster,hdf5,vector" }
+          - { name: oldest + extras, python: "3.10", resolution: lowest-direct, extras: "test,raster,hdf5,vector,excel,app" }
           - { name: newest, python: "3.13", resolution: highest, extras: "test" }
-          - { name: newest + extras, python: "3.13", resolution: highest, extras: "test,raster,hdf5,vector" }
+          - { name: newest + extras, python: "3.13", resolution: highest, extras: "test,raster,hdf5,vector,excel,app" }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -25,7 +25,8 @@ jobs:
       - run: pip install uv
       - run: uv pip install --system --resolution ${{ matrix.resolution }} -e ".[${{ matrix.extras }}]"
       - run: uv pip list --system
-      - run: pytest
+      - run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri libosmesa6
+      - run: xvfb-run -a pytest
 
   docs:
     runs-on: ubuntu-latest

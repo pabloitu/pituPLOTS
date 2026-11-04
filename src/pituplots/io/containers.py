@@ -63,7 +63,11 @@ def unwrap_lon(lon):
 
 @dataclass(eq=False)
 class Catalog:
-    """Event catalog. Depth in km, positive down; time as naive UTC."""
+    """Event catalog. Depth in km, positive down; time as naive UTC.
+
+    With a projected or ``"local"`` ``crs``, ``lon`` and ``lat`` hold x and y
+    in metres.
+    """
 
     lon: np.ndarray
     lat: np.ndarray
@@ -71,6 +75,7 @@ class Catalog:
     mag: np.ndarray | None = None
     time: np.ndarray | None = None
     extra: dict = field(default_factory=dict)
+    crs: str = "EPSG:4326"
 
     def __post_init__(self):
         self.lon = np.atleast_1d(np.asarray(self.lon, float))
@@ -93,7 +98,59 @@ class Catalog:
         """Events selected by a boolean mask, indices or a slice."""
         pick = (lambda v: None if v is None else v[key])
         return Catalog(self.lon[key], self.lat[key], pick(self.depth), pick(self.mag), pick(self.time),
-                       {k: v[key] for k, v in self.extra.items()})
+                       {k: v[key] for k, v in self.extra.items()}, self.crs)
+
+    @property
+    def geographic(self):
+        if self.crs == "local":
+            return False
+        from pyproj import CRS
+
+        return CRS(self.crs).is_geographic
+
+    def local_xyz(self, origin=None, projection=None):
+        """Cartesian coordinates in metres: x east, y north, z up.
+
+        Parameters
+        ----------
+        origin : (float, float), optional
+            In the catalog CRS, or in ``projection``. Default the centre of
+            the bounding box.
+        projection : str, optional
+            A projected CRS in metres, such as ``"EPSG:32719"``, to use
+            instead of the default.
+
+        Returns
+        -------
+        xyz : numpy.ndarray
+            ``(n, 3)``. Geographic catalogs are projected with an azimuthal
+            equidistant projection at the origin unless ``projection`` is
+            given; projected ones are shifted by the origin. A missing depth
+            is 0.
+        origin : tuple of float
+        """
+        geo = self.geographic
+        x, y = (unwrap_lon(self.lon) if geo else self.lon), self.lat
+        if projection is not None:
+            from pyproj import CRS, Transformer
+
+            if "local" in (self.crs, projection) or CRS(projection).is_geographic:
+                raise ValueError(f"cannot project a {self.crs!r} catalog to {projection!r}")
+            if projection != self.crs:
+                x, y = Transformer.from_crs(self.crs, projection, always_xy=True).transform(x, y)
+            geo = False
+        if origin is None:
+            ok = np.isfinite(x) & np.isfinite(y)
+            origin = ((x[ok].min() + x[ok].max()) / 2, (y[ok].min() + y[ok].max()) / 2) if ok.any() else (0., 0.)
+        if geo:
+            from pyproj import CRS, Transformer
+
+            aeqd = CRS(proj="aeqd", lon_0=origin[0], lat_0=origin[1], ellps="WGS84")
+            x, y = Transformer.from_crs(self.crs, aeqd, always_xy=True).transform(x, y)
+        else:
+            x, y = x - origin[0], y - origin[1]
+        z = np.zeros(x.shape) if self.depth is None else -1000 * self.depth
+        return np.c_[x, y, z], (float(origin[0]), float(origin[1]))
 
 
 @dataclass(eq=False)

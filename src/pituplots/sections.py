@@ -166,7 +166,7 @@ def plot_section(data, profile, ax=None, ve=None, color_by=None, hollow=None, si
     """
     import matplotlib.pyplot as plt
 
-    cat = as_catalog(data)
+    cat = as_catalog(data, geo=True)
     if cat.depth is None:
         raise ValueError("plot_section needs depths")
     if ax is None:
